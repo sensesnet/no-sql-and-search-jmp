@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.stereotype.Component;
 import ua.epam.mishchenko.ticketbooking.model.Ticket;
+import ua.epam.mishchenko.ticketbooking.model.User;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -35,6 +36,11 @@ public class PDFUtils {
      * The Tickets.
      */
     private List<Ticket> tickets;
+
+    /**
+     * The user
+     */
+    private User user;
 
     /**
      * The Path.
@@ -138,7 +144,7 @@ public class PDFUtils {
         for (Ticket ticket : tickets) {
             createAndAddCells(table,
                     String.valueOf(ticket.getId()),
-                    String.valueOf(ticket.getUser().getId()),
+                    String.valueOf(user.getId()),
                     String.valueOf(ticket.getEvent().getId()),
                     String.valueOf(ticket.getPlace()),
                     String.valueOf(ticket.getCategory()));
@@ -175,5 +181,14 @@ public class PDFUtils {
      */
     public void setPath(Path path) {
         this.path = path;
+    }
+
+    /**
+     * Sets user
+     *
+     * @param user
+     */
+    public void setUser(User user) {
+        this.user = user;
     }
 }

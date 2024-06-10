@@ -11,6 +11,7 @@ import ua.epam.mishchenko.ticketbooking.service.UserService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * The type User service.
@@ -39,7 +40,7 @@ public class UserServiceImpl implements UserService {
      * @return the user by id
      */
     @Override
-    public User getUserById(long userId) {
+    public User getUserById(UUID userId) {
         log.info("Finding a user by id: {}", userId);
         try {
             User user = userRepository.findById(userId)
@@ -47,7 +48,7 @@ public class UserServiceImpl implements UserService {
             log.info("The user with id {} successfully found ", userId);
             return user;
         } catch (RuntimeException e) {
-            log.warn("Can not to get an user by id: " + userId);
+            log.warn("Can not to get an user by id: {}", userId);
             return null;
         }
     }
@@ -66,12 +67,12 @@ public class UserServiceImpl implements UserService {
                 log.warn("The email can not be null");
                 return null;
             }
-            User user = userRepository.getByEmail(email)
+            User user = userRepository.findByEmail(email)
                     .orElseThrow(() -> new RuntimeException("Can not to get an user by email: " + email));
             log.info("The user with email {} successfully found ", email);
             return user;
         } catch (RuntimeException e) {
-            log.warn("Can not to get an user by email: " + email);
+            log.warn("Can not to get an user by email: {}", email);
             return null;
         }
     }
@@ -185,7 +186,7 @@ public class UserServiceImpl implements UserService {
      * @return the boolean
      */
     @Override
-    public boolean deleteUser(long userId) {
+    public boolean deleteUser(UUID userId) {
         log.info("Start deleting an user with id: {}", userId);
         try {
             userRepository.deleteById(userId);

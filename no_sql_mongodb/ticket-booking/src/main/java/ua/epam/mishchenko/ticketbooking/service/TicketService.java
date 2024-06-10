@@ -6,6 +6,7 @@ import ua.epam.mishchenko.ticketbooking.model.Ticket;
 import ua.epam.mishchenko.ticketbooking.model.User;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * The interface Ticket service.
@@ -21,7 +22,7 @@ public interface TicketService {
      * @param category the category
      * @return the ticket
      */
-    Ticket bookTicket(long userId, long eventId, int place, Category category);
+    Ticket bookTicket(UUID userId, UUID eventId, int place, Category category);
 
     /**
      * Gets booked tickets.
@@ -49,5 +50,5 @@ public interface TicketService {
      * @param ticketId the ticket id
      * @return the boolean
      */
-    boolean cancelTicket(long ticketId);
+    boolean cancelTicket(UUID ticketId);
 }

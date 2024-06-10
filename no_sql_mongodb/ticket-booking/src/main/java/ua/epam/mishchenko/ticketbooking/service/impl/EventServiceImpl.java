@@ -12,6 +12,7 @@ import ua.epam.mishchenko.ticketbooking.service.EventService;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * The type Event service.
@@ -45,7 +46,7 @@ public class EventServiceImpl implements EventService {
      * @return the event by id
      */
     @Override
-    public Event getEventById(long eventId) {
+    public Event getEventById(UUID eventId) {
         log.info("Finding an event by id: {}", eventId);
         try {
             Event event = eventRepository.findById(eventId)
@@ -199,7 +200,7 @@ public class EventServiceImpl implements EventService {
      * @return the boolean
      */
     @Override
-    public boolean deleteEvent(long eventId) {
+    public boolean deleteEvent(UUID eventId) {
         log.info("Start deleting an event with id: {}", eventId);
         try {
             eventRepository.deleteById(eventId);

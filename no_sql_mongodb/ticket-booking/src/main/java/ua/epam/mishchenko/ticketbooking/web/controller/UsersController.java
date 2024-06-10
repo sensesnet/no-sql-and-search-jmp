@@ -3,13 +3,7 @@ package ua.epam.mishchenko.ticketbooking.web.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import ua.epam.mishchenko.ticketbooking.facade.impl.BookingFacadeImpl;
 import ua.epam.mishchenko.ticketbooking.model.User;
@@ -17,6 +11,7 @@ import ua.epam.mishchenko.ticketbooking.model.User;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * The type Users controller.
@@ -51,7 +46,7 @@ public class UsersController {
      * @return the model and view
      */
     @GetMapping("/{id}")
-    public ModelAndView showUserById(@PathVariable long id) {
+    public ModelAndView showUserById(@PathVariable UUID id) {
         log.info("Showing user by id: {}", id);
         Map<String, Object> model = new HashMap<>();
         User userById = bookingFacade.getUserById(id);
@@ -168,7 +163,7 @@ public class UsersController {
      * @return the model and view
      */
     @PutMapping
-    public ModelAndView updateUser(@RequestParam long id,
+    public ModelAndView updateUser(@RequestParam UUID id,
                                    @RequestParam String name,
                                    @RequestParam String email) {
         log.info("Updating user with id: {}", id);
@@ -192,7 +187,7 @@ public class UsersController {
      * @param email the email
      * @return the user
      */
-    private User createUserEntityWithId(long id, String name, String email) {
+    private User createUserEntityWithId(UUID id, String name, String email) {
         User user = createUserEntityWithoutId(name, email);
         user.setId(id);
         return user;
@@ -205,7 +200,7 @@ public class UsersController {
      * @return the model and view
      */
     @DeleteMapping("/{id}")
-    public ModelAndView deleteUser(@PathVariable long id) {
+    public ModelAndView deleteUser(@PathVariable UUID id) {
         log.info("Deleting the user with id: {}", id);
         Map<String, Object> model = new HashMap<>();
         boolean isUserRemoved = bookingFacade.deleteUser(id);

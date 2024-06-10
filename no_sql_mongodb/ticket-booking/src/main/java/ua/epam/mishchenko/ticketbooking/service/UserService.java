@@ -3,6 +3,7 @@ package ua.epam.mishchenko.ticketbooking.service;
 import ua.epam.mishchenko.ticketbooking.model.User;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * The interface User service.
@@ -15,7 +16,7 @@ public interface UserService {
      * @param userId the user id
      * @return the user by id
      */
-    User getUserById(long userId);
+    User getUserById(UUID userId);
 
     /**
      * Gets user by email.
@@ -57,5 +58,5 @@ public interface UserService {
      * @param userId the user id
      * @return the boolean
      */
-    boolean deleteUser(long userId);
+    boolean deleteUser(UUID userId);
 }

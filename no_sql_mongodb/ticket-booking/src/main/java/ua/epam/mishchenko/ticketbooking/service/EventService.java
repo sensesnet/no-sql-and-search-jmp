@@ -4,6 +4,7 @@ import ua.epam.mishchenko.ticketbooking.model.Event;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * The interface Event service.
@@ -16,7 +17,7 @@ public interface EventService {
      * @param eventId the event id
      * @return the event by id
      */
-    Event getEventById(long eventId);
+    Event getEventById(UUID eventId);
 
     /**
      * Gets events by title.
@@ -60,5 +61,5 @@ public interface EventService {
      * @param eventId the event id
      * @return the boolean
      */
-    boolean deleteEvent(long eventId);
+    boolean deleteEvent(UUID eventId);
 }

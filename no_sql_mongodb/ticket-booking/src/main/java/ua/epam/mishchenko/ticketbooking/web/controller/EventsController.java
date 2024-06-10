@@ -3,23 +3,14 @@ package ua.epam.mishchenko.ticketbooking.web.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import ua.epam.mishchenko.ticketbooking.facade.impl.BookingFacadeImpl;
 import ua.epam.mishchenko.ticketbooking.model.Event;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static ua.epam.mishchenko.ticketbooking.utils.Constants.DATE_FORMATTER;
 
@@ -56,7 +47,7 @@ public class EventsController {
      * @return the model and view
      */
     @GetMapping("/{id}")
-    public ModelAndView showEventById(@PathVariable long id) {
+    public ModelAndView showEventById(@PathVariable UUID id) {
         log.info("Showing event by id: {}", id);
         Event eventById = bookingFacade.getEventById(id);
         Map<String, Object> model = new HashMap<>();
@@ -205,7 +196,7 @@ public class EventsController {
      * @return the model and view
      */
     @PutMapping
-    public ModelAndView updateEvent(@RequestParam long id,
+    public ModelAndView updateEvent(@RequestParam UUID id,
                                     @RequestParam String title,
                                     @RequestParam String day,
                                     @RequestParam BigDecimal price) {
@@ -236,7 +227,7 @@ public class EventsController {
      * @param price the price
      * @return the event
      */
-    private Event createEventEntityWithId(long id, String title, String day, BigDecimal price) {
+    private Event createEventEntityWithId(UUID id, String title, String day, BigDecimal price) {
         Event eventEntity = createEventEntityWithoutId(title, day, price);
         eventEntity.setId(id);
         return eventEntity;
@@ -249,7 +240,7 @@ public class EventsController {
      * @return the model and view
      */
     @DeleteMapping("/{id}")
-    public ModelAndView deleteEvent(@PathVariable long id) {
+    public ModelAndView deleteEvent(@PathVariable UUID id) {
         log.info("Deleting an event with id: {}", id);
         Map<String, Object> model = new HashMap<>();
         boolean isEventDeleted = bookingFacade.deleteEvent(id);

@@ -5,11 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ua.epam.mishchenko.ticketbooking.facade.impl.BookingFacadeImpl;
 import ua.epam.mishchenko.ticketbooking.model.Ticket;
 import ua.epam.mishchenko.ticketbooking.model.User;
@@ -18,6 +14,7 @@ import ua.epam.mishchenko.ticketbooking.utils.PDFUtils;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.UUID;
 
 import static org.springframework.http.MediaType.APPLICATION_PDF_VALUE;
 
@@ -63,17 +60,17 @@ public class BookedTicketsPDFController {
      * @return the booked tickets by user pdf
      */
     @GetMapping("/{userId}")
-    public ResponseEntity<Object> getBookedTicketsByUserPDF(@PathVariable long userId,
+    public ResponseEntity<Object> getBookedTicketsByUserPDF(@PathVariable UUID userId,
                                                             @RequestParam int pageSize,
                                                             @RequestParam int pageNum) {
         log.info("Showing the tickets by user with id: {}", userId);
 
         User userById = getUserById(userId);
-        List<Ticket> bookedTickets = getBookedTickets(userId, pageSize, pageNum, userById);
+        List<Ticket> bookedTickets = getBookedTickets(userById);
 
         log.info("The tickets successfully found");
 
-        return createResponseEntityWithPDFDocument(bookedTickets);
+        return createResponseEntityWithPDFDocument(bookedTickets, userById);
     }
 
     /**
@@ -82,7 +79,7 @@ public class BookedTicketsPDFController {
      * @param userId the user id
      * @return the user by id
      */
-    private User getUserById(long userId) {
+    private User getUserById(UUID userId) {
         User userById = bookingFacade.getUserById(userId);
         if (isNull(userById)) {
             log.info("Can not to find a user by id: {}", userId);
@@ -94,17 +91,14 @@ public class BookedTicketsPDFController {
     /**
      * Gets booked tickets.
      *
-     * @param userId   the user id
-     * @param pageSize the page size
-     * @param pageNum  the page num
      * @param userById the user by id
      * @return the booked tickets
      */
-    private List<Ticket> getBookedTickets(long userId, int pageSize, int pageNum, User userById) {
-        List<Ticket> bookedTickets = bookingFacade.getBookedTickets(userById, pageSize, pageNum);
+    private List<Ticket> getBookedTickets(User userById) {
+        List<Ticket> bookedTickets = userById.getTickets();
         if (bookedTickets.isEmpty()) {
-            log.info("Can not to find the tickets by user with id: {}", userId);
-            throw new RuntimeException("Can not to find the tickets by user with id: " + userId);
+            log.info("Can not to find the tickets by user with id: {}", userById.getId());
+            throw new RuntimeException("Can not to find the tickets by user with id: " + userById.getId());
         }
         return bookedTickets;
     }
@@ -115,8 +109,8 @@ public class BookedTicketsPDFController {
      * @param bookedTickets the booked tickets
      * @return the response entity
      */
-    private ResponseEntity<Object> createResponseEntityWithPDFDocument(List<Ticket> bookedTickets) {
-        createPDFDocument(bookedTickets);
+    private ResponseEntity<Object> createResponseEntityWithPDFDocument(List<Ticket> bookedTickets, User user) {
+        createPDFDocument(bookedTickets, user);
         InputStreamResource pdfDocument = pdfUtils.getPDFDocument();
         pdfUtils.deletePDFDocument();
         return new ResponseEntity<>(pdfDocument, HttpStatus.OK);
@@ -127,9 +121,10 @@ public class BookedTicketsPDFController {
      *
      * @param bookedTickets the booked tickets
      */
-    private void createPDFDocument(List<Ticket> bookedTickets) {
+    private void createPDFDocument(List<Ticket> bookedTickets, User user) {
         Path path = Paths.get("Booked Tickets.pdf");
         pdfUtils.setTickets(bookedTickets);
+        pdfUtils.setUser(user);
         pdfUtils.setPath(path);
         pdfUtils.createPDFFileOfBookedTicketsByUser();
     }

@@ -3,12 +3,7 @@ package ua.epam.mishchenko.ticketbooking.web.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import ua.epam.mishchenko.ticketbooking.facade.impl.BookingFacadeImpl;
 import ua.epam.mishchenko.ticketbooking.model.Category;
@@ -19,6 +14,7 @@ import ua.epam.mishchenko.ticketbooking.model.User;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * The type Tickets controller.
@@ -56,8 +52,8 @@ public class TicketsController {
      * @return the model and view
      */
     @PostMapping
-    public ModelAndView bookTicket(@RequestParam long userId,
-                                   @RequestParam long eventId,
+    public ModelAndView bookTicket(@RequestParam UUID userId,
+                                   @RequestParam UUID eventId,
                                    @RequestParam int place,
                                    @RequestParam Category category) {
         log.info("Booking a ticket: userId={}, eventId={}, place={}, category={}", userId, eventId, place, category);
@@ -93,7 +89,7 @@ public class TicketsController {
      * @return the model and view
      */
     @GetMapping("/user/{userId}")
-    public ModelAndView showTicketsByUser(@PathVariable long userId,
+    public ModelAndView showTicketsByUser(@PathVariable UUID userId,
                                           @RequestParam int pageSize,
                                           @RequestParam int pageNum) {
         log.info("Showing the tickets by user with id: {}", userId);
@@ -124,7 +120,7 @@ public class TicketsController {
      * @return the model and view
      */
     @GetMapping("/event/{eventId}")
-    public ModelAndView showTicketsByEvent(@PathVariable long eventId,
+    public ModelAndView showTicketsByEvent(@PathVariable UUID eventId,
                                            @RequestParam int pageSize,
                                            @RequestParam int pageNum) {
         log.info("Showing the tickets by event with id: {}", eventId);
@@ -153,7 +149,7 @@ public class TicketsController {
      * @return the model and view
      */
     @DeleteMapping("/{id}")
-    public ModelAndView cancelTicket(@PathVariable long id) {
+    public ModelAndView cancelTicket(@PathVariable UUID id) {
         log.info("Canceling ticket with id: {}", id);
         Map<String, Object> model = new HashMap<>();
         boolean isTicketCanceled = bookingFacade.cancelTicket(id);

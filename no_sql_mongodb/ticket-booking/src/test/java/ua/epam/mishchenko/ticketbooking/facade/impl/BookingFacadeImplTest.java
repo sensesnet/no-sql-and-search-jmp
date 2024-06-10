@@ -12,7 +12,6 @@ import ua.epam.mishchenko.ticketbooking.model.Event;
 import ua.epam.mishchenko.ticketbooking.model.Ticket;
 import ua.epam.mishchenko.ticketbooking.model.User;
 import ua.epam.mishchenko.ticketbooking.model.UserAccount;
-import ua.epam.mishchenko.ticketbooking.repository.UserAccountRepository;
 
 import java.math.BigDecimal;
 import java.util.Date;

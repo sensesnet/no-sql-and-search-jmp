@@ -1,14 +1,12 @@
 package ua.epam.mishchenko.ticketbooking.model;
 
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 
-@Entity
-@Table(name = "user_accounts")
-@Cacheable
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Document(collection = "user_accounts")
 public class UserAccount {
 
     /**
