@@ -1,0 +1,62 @@
+{
+  "took": 201,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 20,
+      "relation": "eq"
+    },
+    "max_score": null,
+    "hits": []
+  },
+  "aggregations": {
+    "by_skills": {
+      "doc_count_error_upper_bound": 0,
+      "sum_other_doc_count": 0,
+      "buckets": [
+        {
+          "key": "GCP",
+          "doc_count": 8
+        },
+        {
+          "key": "AWS",
+          "doc_count": 6
+        },
+        {
+          "key": "AZURE",
+          "doc_count": 6
+        },
+        {
+          "key": "Python",
+          "doc_count": 6
+        },
+        {
+          "key": "Ruby",
+          "doc_count": 5
+        },
+        {
+          "key": "Java",
+          "doc_count": 4
+        },
+        {
+          "key": "Scala",
+          "doc_count": 3
+        },
+        {
+          "key": "Javascript",
+          "doc_count": 2
+        },
+        {
+          "key": "Machine Learning",
+          "doc_count": 1
+        }
+      ]
+    }
+  }
+}

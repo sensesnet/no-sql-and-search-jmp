@@ -1,0 +1,95 @@
+{
+  "took": 31,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 2,
+      "relation": "eq"
+    },
+    "max_score": 1.0,
+    "hits": [
+      {
+        "_index": "post-comments",
+        "_id": "C",
+        "_score": 1.0,
+        "_routing": "2",
+        "_source": {
+          "_join_type": {
+            "name": "comment",
+            "parent": "2"
+          },
+          "comment_author": "Emma Cochrane",
+          "comment_description": "There's the sublime beauty of a forgotten world and the promise of happily-ever-after to draw you to one of your favourite fairy tales, once again. Give it an encore."
+        },
+        "inner_hits": {
+          "post": {
+            "hits": {
+              "total": {
+                "value": 1,
+                "relation": "eq"
+              },
+              "max_score": 0.5956733,
+              "hits": [
+                {
+                  "_index": "post-comments",
+                  "_id": "2",
+                  "_score": 0.5956733,
+                  "_source": {
+                    "_join_type": {
+                      "name": "post"
+                    },
+                    "post_title": "Beauty and the beast - a nice movie"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "_index": "post-comments",
+        "_id": "D",
+        "_score": 1.0,
+        "_routing": "2",
+        "_source": {
+          "_join_type": {
+            "name": "comment",
+            "parent": "2"
+          },
+          "comment_author": "Common Sense Media Editors",
+          "comment_description": "Stellar music, brisk storytelling, delightful animation, and compelling characters make this both a great animated feature for kids and a great movie for anyone"
+        },
+        "inner_hits": {
+          "post": {
+            "hits": {
+              "total": {
+                "value": 1,
+                "relation": "eq"
+              },
+              "max_score": 0.5956733,
+              "hits": [
+                {
+                  "_index": "post-comments",
+                  "_id": "2",
+                  "_score": 0.5956733,
+                  "_source": {
+                    "_join_type": {
+                      "name": "post"
+                    },
+                    "post_title": "Beauty and the beast - a nice movie"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    ]
+  }
+}

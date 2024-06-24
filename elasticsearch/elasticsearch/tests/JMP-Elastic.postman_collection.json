@@ -1,0 +1,811 @@
+{
+	"info": {
+		"_postman_id": "672a9c6c-8200-4f7f-b497-f36e040618b3",
+		"name": "JMP-Elastic",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16463898"
+	},
+	"item": [
+		{
+			"name": "First task",
+			"item": [
+				{
+					"name": "Get all employees",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9200/employees/_search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"employees",
+								"_search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9200/employees/_doc/12234566",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"employees",
+								"_doc",
+								"12234566"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new employee",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Ana Brown\",\n  \"dob\": \"1993-03-19\",\n  \"address\": {\n    \"country\": \"Belarus\",\n    \"town\": \"Gomel\"\n  },\n  \"email\": \"anabrown9@gmail.com\",\n  \"skills\": [\n    \"Java\",\n    \"AWS\"\n  ],\n  \"experience\": 10,\n  \"rating\": 9.2,\n  \"description\": \"confident, ambitious, highly motivated Java experience interview learning python\",\n  \"verified\": true,\n  \"salary\": 30000\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:9200/employees/_doc/12234566",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"employees",
+								"_doc",
+								"12234566"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Mget",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"docs\": [\n    {\"_id\": \"YpuHTY8B7TXYCh1SnJcV\"},\n    {\"_id\": \"12234566\"}\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:9200/employees/_mget",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"employees",
+								"_mget"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "mapping",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:9200/employees/_mapping",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"employees",
+								"_mapping"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update skill",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"script\" : {\n    \"source\": \"ctx._source.skills.add(params.skill)\",\n    \"lang\": \"painless\",\n    \"params\" : {\n      \"skill\" : \"Machine Learning\"\n    }\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:9200/employees/_update/12234566",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"employees",
+								"_update",
+								"12234566"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:9200/employees/_doc/YpuHTY8B7TXYCh1SnJcV",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"employees",
+								"_doc",
+								"YpuHTY8B7TXYCh1SnJcV"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Second task",
+			"item": [
+				{
+					"name": "Searching",
+					"item": [
+						{
+							"name": "Match",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"query\": {\n    \"match\": {\n      \"description\": \"motivated\"\n    }\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:9200/employees/_search",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9200",
+									"path": [
+										"employees",
+										"_search"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "match with AND",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"query\": {\n    \"match\": {\n      \"description\": {\n        \"query\": \"highly motivated\",\n        \"operator\": \"AND\"\n      }\n    }\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:9200/employees/_search",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9200",
+									"path": [
+										"employees",
+										"_search"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Multi match",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						},
+						{
+							"name": "Term",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"query\": {\n    \"terms\": {\n      \"name.keyword\": [\"Stepanie Spain\", \"Ana Brown\"]\n    }\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:9200/employees/_search",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9200",
+									"path": [
+										"employees",
+										"_search"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Range",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"query\": {\n    \"range\": {\n      \"experience\": {\n        \"gte\": 5,\n        \"lte\": 20\n      }\n    }\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:9200/employees/_search",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9200",
+									"path": [
+										"employees",
+										"_search"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Date range",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"query\": {\n    \"range\": {\n      \"dob\": {\n        \"lt\": \"2000-01-01\"\n      }\n    }\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:9200/employees/_search",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9200",
+									"path": [
+										"employees",
+										"_search"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Wildcart",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"query\": {\n    \"wildcard\": {\n      \"address.town\": \"b*y\"\n    }\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:9200/employees/_search",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9200",
+									"path": [
+										"employees",
+										"_search"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Regexp",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"query\": {\n    \"regexp\": {\n      \"address.town.keyword\": \"Batley\"\n    }\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:9200/employees/_search",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9200",
+									"path": [
+										"employees",
+										"_search"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Fuzzy",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:9200/employees/_search",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9200",
+									"path": [
+										"employees",
+										"_search"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Aggregating",
+					"item": [
+						{
+							"name": "by skill",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"size\": 0,\r\n  \"aggs\": {\r\n    \"by_skills\": {\r\n      \"terms\": {\r\n        \"field\": \"skills.keyword\"\r\n      }\r\n    }\r\n  }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:9200/employees/_search",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9200",
+									"path": [
+										"employees",
+										"_search"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "verified",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"size\": 0,\r\n  \"aggs\": {\r\n    \"verified_employees\": {\r\n      \"filter\": {\r\n        \"term\": {\r\n          \"verified\": true\r\n        }\r\n      },\r\n      \"aggs\": {\r\n        \"by_skills\": {\r\n          \"terms\": {\r\n            \"field\": \"skills.keyword\"\r\n          }\r\n        }\r\n      }\r\n    }\r\n  }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:9200/employees/_search",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9200",
+									"path": [
+										"employees",
+										"_search"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "rating",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"size\": 0,\r\n  \"aggs\": {\r\n    \"verified_employees\": {\r\n      \"filter\": {\r\n        \"term\": {\r\n          \"verified\": true\r\n        }\r\n      },\r\n      \"aggs\": {\r\n        \"by_skills\": {\r\n          \"terms\": {\r\n            \"field\": \"skills.keyword\"\r\n          },\r\n          \"aggs\": {\r\n            \"average_rating\": {\r\n              \"avg\": {\r\n                \"field\": \"rating\"\r\n              }\r\n            }\r\n          }\r\n        }\r\n      }\r\n    }\r\n  }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:9200/employees/_search",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9200",
+									"path": [
+										"employees",
+										"_search"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "stats",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"size\": 0,\r\n  \"aggs\": {\r\n    \"verified_employees\": {\r\n      \"filter\": {\r\n        \"term\": {\r\n          \"verified\": true\r\n        }\r\n      },\r\n      \"aggs\": {\r\n        \"by_skills\": {\r\n          \"terms\": {\r\n            \"field\": \"skills.keyword\",\r\n            \"order\": {\r\n              \"rating_stats.avg\": \"desc\"\r\n            }\r\n          },\r\n          \"aggs\": {\r\n            \"rating_stats\": {\r\n              \"stats\": {\r\n                \"field\": \"rating\"\r\n              }\r\n            }\r\n          }\r\n        }\r\n      }\r\n    }\r\n  }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:9200/employees/_search",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9200",
+									"path": [
+										"employees",
+										"_search"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Joining",
+					"item": [
+						{
+							"name": "post-comments",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"mappings\": {\n    \"properties\": {\n      \"_join_type\": { \n        \"type\": \"join\",\n        \"relations\": {\n          \"post\": \"comment\" \n        }\n      }\n    }\n  }\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:9200/post-comments",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9200",
+									"path": [
+										"post-comments"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "index",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "// {\n// \"_join_type\": {\n//     \"name\": \"post\" \n//   },\n// \"post_title\" : \"Angel Has Fallen\"\n// }\n{\n\"_join_type\": {\n    \"name\": \"post\" \n  },\n\"post_title\" : \"Beauty and the beast - a nice movie\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:9200/post-comments/_doc/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9200",
+									"path": [
+										"post-comments",
+										"_doc",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "routing",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "// {\n// \"_join_type\": {\n// \"name\": \"comment\",\n// \"parent\": \"1\"\n// },\n// \"comment_author\": \"Neil Soans\",\n// \"comment_description\": \"'Angel has Fallen' has some redeeming qualities, but they're too few and far in between to justify its existence\"\n// }\n\n// {\n//   \"_join_type\": {\n//     \"name\": \"comment\",\n//     \"parent\": \"1\"\n//   },\n//   \"comment_author\": \"Exiled Universe\",\n//   \"comment_description\": \"Best in the trilogy! This movie wasn't better than the Rambo movie but it was very very close.\"\n// }\n\n// {\n// \"_join_type\": {\n// \"name\": \"comment\",\n// \"parent\": \"2\"\n// },\n// \"comment_author\": \"Emma Cochrane\",\n// \"comment_description\": \"There's the sublime beauty of a forgotten world and the promise of happily-ever-after to draw you to one of your favourite fairy tales, once again. Give it an encore.\"\n// }\n\n{\n\"_join_type\": {\n\"name\": \"comment\",\n\"parent\": \"2\"\n},\n\"comment_author\": \"Common Sense Media Editors\",\n\"comment_description\": \"Stellar music, brisk storytelling, delightful animation, and compelling characters make this both a great animated feature for kids and a great movie for anyone\"\n}\n\n\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:9200/post-comments/_doc/D?routing=2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9200",
+									"path": [
+										"post-comments",
+										"_doc",
+										"D"
+									],
+									"query": [
+										{
+											"key": "routing",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "has child",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"query\": {\n    \"has_child\": {\n      \"type\": \"comment\",\n      \"query\": {\n        \"match\": {\n          \"comment_description\": \"music\"\n        }\n      },\n      \"inner_hits\": {}\n    }\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:9200/post-comments/_search",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9200",
+									"path": [
+										"post-comments",
+										"_search"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "all docs",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"query\": {\n    \"match_all\": {}\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:9200/post-comments/_search",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9200",
+									"path": [
+										"post-comments",
+										"_search"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "has parent",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"query\": {\n    \"has_parent\": {\n      \"parent_type\": \"post\",\n      \"query\": {\n        \"match\": {\n          \"post_title\": \"Beauty\"\n        }\n      },\n      \"inner_hits\": {}\n    }\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:9200/post-comments/_search",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9200",
+									"path": [
+										"post-comments",
+										"_search"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Suggesting",
+					"item": [
+						{
+							"name": "suggesting",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"suggest\": {\n    \"comment-suggestion\" : {\n      \"text\" : \"masic\",\n      \"term\" : {\n        \"field\" : \"comment_description\",\n        \"max_edits\": 2\n      }\n    }\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:9200/post-comments/_search",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9200",
+									"path": [
+										"post-comments",
+										"_search"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}

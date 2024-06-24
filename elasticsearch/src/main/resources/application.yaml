@@ -1,0 +1,8 @@
+elasticsearch:
+  host: localhost
+  port: 9200
+  low: false
+
+springdoc:
+  api-docs:
+    path: /api-docs

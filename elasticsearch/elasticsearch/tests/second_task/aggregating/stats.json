@@ -1,0 +1,128 @@
+{
+  "took": 13,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 20,
+      "relation": "eq"
+    },
+    "max_score": null,
+    "hits": []
+  },
+  "aggregations": {
+    "verified_employees": {
+      "doc_count": 17,
+      "by_skills": {
+        "doc_count_error_upper_bound": 0,
+        "sum_other_doc_count": 0,
+        "buckets": [
+          {
+            "key": "Machine Learning",
+            "doc_count": 1,
+            "rating_stats": {
+              "count": 1,
+              "min": 9.199999809265137,
+              "max": 9.199999809265137,
+              "avg": 9.199999809265137,
+              "sum": 9.199999809265137
+            }
+          },
+          {
+            "key": "Scala",
+            "doc_count": 2,
+            "rating_stats": {
+              "count": 2,
+              "min": 4.599999904632568,
+              "max": 9.399999618530273,
+              "avg": 6.999999761581421,
+              "sum": 13.999999523162842
+            }
+          },
+          {
+            "key": "Python",
+            "doc_count": 5,
+            "rating_stats": {
+              "count": 5,
+              "min": 5.5,
+              "max": 7.400000095367432,
+              "avg": 6.619999980926513,
+              "sum": 33.09999990463257
+            }
+          },
+          {
+            "key": "GCP",
+            "doc_count": 7,
+            "rating_stats": {
+              "count": 7,
+              "min": 3.0,
+              "max": 9.300000190734863,
+              "avg": 6.428571428571429,
+              "sum": 45.0
+            }
+          },
+          {
+            "key": "AWS",
+            "doc_count": 5,
+            "rating_stats": {
+              "count": 5,
+              "min": 2.700000047683716,
+              "max": 9.399999618530273,
+              "avg": 6.219999885559082,
+              "sum": 31.09999942779541
+            }
+          },
+          {
+            "key": "Ruby",
+            "doc_count": 5,
+            "rating_stats": {
+              "count": 5,
+              "min": 3.0,
+              "max": 9.300000190734863,
+              "avg": 5.92000002861023,
+              "sum": 29.600000143051147
+            }
+          },
+          {
+            "key": "Javascript",
+            "doc_count": 2,
+            "rating_stats": {
+              "count": 2,
+              "min": 4.0,
+              "max": 7.699999809265137,
+              "avg": 5.849999904632568,
+              "sum": 11.699999809265137
+            }
+          },
+          {
+            "key": "AZURE",
+            "doc_count": 5,
+            "rating_stats": {
+              "count": 5,
+              "min": 3.5,
+              "max": 7.400000095367432,
+              "avg": 5.539999961853027,
+              "sum": 27.699999809265137
+            }
+          },
+          {
+            "key": "Java",
+            "doc_count": 3,
+            "rating_stats": {
+              "count": 3,
+              "min": 2.700000047683716,
+              "max": 9.199999809265137,
+              "avg": 5.133333285649617,
+              "sum": 15.399999856948853
+            }
+          }
+        ]
+      }
+    }
+  }
+}

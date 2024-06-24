@@ -1,0 +1,57 @@
+{
+  "took": 31,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 1,
+      "relation": "eq"
+    },
+    "max_score": 1.0,
+    "hits": [
+      {
+        "_index": "post-comments",
+        "_id": "2",
+        "_score": 1.0,
+        "_source": {
+          "_join_type": {
+            "name": "post"
+          },
+          "post_title": "Beauty and the beast - a nice movie"
+        },
+        "inner_hits": {
+          "comment": {
+            "hits": {
+              "total": {
+                "value": 1,
+                "relation": "eq"
+              },
+              "max_score": 1.3365866,
+              "hits": [
+                {
+                  "_index": "post-comments",
+                  "_id": "D",
+                  "_score": 1.3365866,
+                  "_routing": "2",
+                  "_source": {
+                    "_join_type": {
+                      "name": "comment",
+                      "parent": "2"
+                    },
+                    "comment_author": "Common Sense Media Editors",
+                    "comment_description": "Stellar music, brisk storytelling, delightful animation, and compelling characters make this both a great animated feature for kids and a great movie for anyone"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    ]
+  }
+}

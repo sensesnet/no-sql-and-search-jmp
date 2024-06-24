@@ -1,0 +1,92 @@
+{
+  "took": 25,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 20,
+      "relation": "eq"
+    },
+    "max_score": null,
+    "hits": []
+  },
+  "aggregations": {
+    "verified_employees": {
+      "doc_count": 17,
+      "by_skills": {
+        "doc_count_error_upper_bound": 0,
+        "sum_other_doc_count": 0,
+        "buckets": [
+          {
+            "key": "GCP",
+            "doc_count": 7,
+            "average_rating": {
+              "value": 6.428571428571429
+            }
+          },
+          {
+            "key": "AWS",
+            "doc_count": 5,
+            "average_rating": {
+              "value": 6.219999885559082
+            }
+          },
+          {
+            "key": "AZURE",
+            "doc_count": 5,
+            "average_rating": {
+              "value": 5.539999961853027
+            }
+          },
+          {
+            "key": "Python",
+            "doc_count": 5,
+            "average_rating": {
+              "value": 6.619999980926513
+            }
+          },
+          {
+            "key": "Ruby",
+            "doc_count": 5,
+            "average_rating": {
+              "value": 5.92000002861023
+            }
+          },
+          {
+            "key": "Java",
+            "doc_count": 3,
+            "average_rating": {
+              "value": 5.133333285649617
+            }
+          },
+          {
+            "key": "Javascript",
+            "doc_count": 2,
+            "average_rating": {
+              "value": 5.849999904632568
+            }
+          },
+          {
+            "key": "Scala",
+            "doc_count": 2,
+            "average_rating": {
+              "value": 6.999999761581421
+            }
+          },
+          {
+            "key": "Machine Learning",
+            "doc_count": 1,
+            "average_rating": {
+              "value": 9.199999809265137
+            }
+          }
+        ]
+      }
+    }
+  }
+}
